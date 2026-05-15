@@ -1,35 +1,119 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Task Manager</title>
 </head>
+
 <body>
 
     <h1>Task Manager</h1>
 
+    <!-- Form -->
     <form method="POST">
 
-    <input 
-        type="text" 
-        name="task"
-        placeholder="Enter your task"
-    >
+        <input 
+            type="text" 
+            name="task"
+            placeholder="Enter your task"
+        >
 
-    <button type="submit">
-        Add Task
-    </button>
+        <button type="submit">
+            Add Task
+        </button>
 
-</form>
-    <ul>
+        <select name="priority">
 
-    {% for task in tasks %}
+            <option value="High">
+                High
+            </option>
 
-        <li>
-            {{ task[1] }}
-        </li>
+            <option value="Medium">
+                Medium
+            </option>
 
-    {% endfor %}
+            <option value="Low">
+                Low
+            </option>
 
-</ul>
+        </select>
+
+    </form>
+
+    <br><br>
+
+    <!-- Task Table -->
+    <table border="1" cellpadding="10">
+
+        <!-- Table Heading -->
+        <tr>
+            <th>ID</th>
+            <th>Task</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Complete</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+
+        <!-- Loop through tasks -->
+        {% for task in tasks %}
+
+        <tr>
+
+            <!-- Task ID -->
+            <td>
+                {{ task[0] }}
+            </td>
+
+            <!-- Task Title -->
+            <td>
+                {{ task[1] }}
+            </td>
+
+            <!-- Task Priority -->
+            <td>
+                {{ task[2] }}
+            </td>
+
+            <!-- Task Status -->
+            <td>
+                {% if task[3] == 1 %}
+                    Completed
+                {% else %}
+                    Pending
+                {% endif %}
+
+            </td>
+            
+            <td>
+
+                 <a href="/complete/{{ task[0] }}">
+                    Complete
+                 </a>
+
+            </td>
+            
+            <!-- Edit Button -->
+            <td>
+                <a href="/edit/{{ task[0] }}">
+                    Edit
+                </a>
+            </td>
+
+            <!-- Delete Button -->
+            <td>
+                <a href="/delete/{{ task[0] }}">
+                    Delete
+                </a>
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
 </body>
+
 </html>
